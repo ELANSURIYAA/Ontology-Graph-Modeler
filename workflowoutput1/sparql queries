@@ -3,24 +3,24 @@
   "totalQueries": 5,
   "queries": [
     {
-      "question": "What are all classes, object properties, and datatype properties defined in the corporate ontology?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?entity ?type\nWHERE {\n  VALUES ?type { owl:Class owl:ObjectProperty owl:DatatypeProperty }\n  ?entity a ?type .\n}\nORDER BY ?type ?entity"
+      "question": "What is the ontology in this repository and what annotations (label and comment) describe it?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?ontology ?label ?comment\nWHERE {\n  ?ontology a owl:Ontology .\n  OPTIONAL { ?ontology rdfs:label ?label . }\n  OPTIONAL { ?ontology rdfs:comment ?comment . }\n}\n"
     },
     {
-      "question": "Which classes are defined in the ontology and what are their direct superclasses (if any)?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?class ?superClass\nWHERE {\n  ?class a owl:Class .\n  OPTIONAL { ?class rdfs:subClassOf ?superClass . }\n}\nORDER BY ?class"
+      "question": "What is the class hierarchy for employees, specifically listing all subclasses of corp:Employee?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?subClass\nWHERE {\n  ?subClass rdfs:subClassOf corp:Employee .\n}\n"
     },
     {
-      "question": "List all individuals in the corporate ontology along with their classes.",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?individual ?class\nWHERE {\n  ?individual a ?class .\n  FILTER(?class IN (corp:Company, corp:Department, corp:Employee, corp:Manager, corp:Engineer, corp:Project, corp:Client, corp:Office))\n}\nORDER BY ?class ?individual"
+      "question": "Which individuals in the ontology are employees (instances of corp:Employee or its subclasses), and what are their types?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?type\nWHERE {\n  {\n    ?employee a corp:Employee .\n    BIND(corp:Employee AS ?type)\n  }\n  UNION\n  {\n    ?type rdfs:subClassOf corp:Employee .\n    ?employee a ?type .\n  }\n}\n"
     },
     {
-      "question": "Which employees (Managers or Engineers) work in which departments and on which projects?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeClass ?department ?project\nWHERE {\n  ?employee a ?employeeClass .\n  FILTER(?employeeClass IN (corp:Manager, corp:Engineer))\n  OPTIONAL { ?employee corp:worksIn ?department . }\n  OPTIONAL { ?employee corp:worksOn ?project . }\n}\nORDER BY ?employee"
+      "question": "Which employees work in which departments and on which projects, including managers and engineers?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeType ?department ?project\nWHERE {\n  ?employee a ?employeeType .\n  FILTER(?employeeType IN (corp:Employee, corp:Manager, corp:Engineer)) .\n  OPTIONAL { ?employee corp:worksIn ?department . }\n  OPTIONAL { ?employee corp:worksOn ?project . }\n}\n"
     },
     {
-      "question": "Retrieve all datatype property values (ID, name, email, salary) for each employee (Managers and Engineers).",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeClass ?employeeId ?employeeName ?email ?salary\nWHERE {\n  ?employee a ?employeeClass .\n  FILTER(?employeeClass IN (corp:Manager, corp:Engineer))\n  OPTIONAL { ?employee corp:employeeId ?employeeId . }\n  OPTIONAL { ?employee corp:employeeName ?employeeName . }\n  OPTIONAL { ?employee corp:email ?email . }\n  OPTIONAL { ?employee corp:salary ?salary . }\n}\nORDER BY ?employee"
+      "question": "What are the key datatype property values (ID, name, email, salary) for each employee individual?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeType ?employeeId ?employeeName ?email ?salary\nWHERE {\n  ?employee a ?employeeType .\n  FILTER(?employeeType IN (corp:Employee, corp:Manager, corp:Engineer)) .\n  OPTIONAL { ?employee corp:employeeId ?employeeId . }\n  OPTIONAL { ?employee corp:employeeName ?employeeName . }\n  OPTIONAL { ?employee corp:email ?email . }\n  OPTIONAL { ?employee corp:salary ?salary . }\n}\n"
     }
   ]
 }
