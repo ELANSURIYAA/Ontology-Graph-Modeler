@@ -1,0 +1,26 @@
+{
+  "status": "success",
+  "totalQueries": 5,
+  "queries": [
+    {
+      "question": "What are all classes, object properties, and datatype properties defined in the corporate ontology?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?entity ?type\nWHERE {\n  VALUES ?type { owl:Class owl:ObjectProperty owl:DatatypeProperty }\n  ?entity a ?type .\n}\nORDER BY ?type ?entity"
+    },
+    {
+      "question": "Which classes are defined in the ontology and what are their direct superclasses (if any)?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?class ?superClass\nWHERE {\n  ?class a owl:Class .\n  OPTIONAL { ?class rdfs:subClassOf ?superClass . }\n}\nORDER BY ?class"
+    },
+    {
+      "question": "List all individuals in the corporate ontology along with their classes.",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?individual ?class\nWHERE {\n  ?individual a ?class .\n  FILTER(?class IN (corp:Company, corp:Department, corp:Employee, corp:Manager, corp:Engineer, corp:Project, corp:Client, corp:Office))\n}\nORDER BY ?class ?individual"
+    },
+    {
+      "question": "Which employees (Managers or Engineers) work in which departments and on which projects?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeClass ?department ?project\nWHERE {\n  ?employee a ?employeeClass .\n  FILTER(?employeeClass IN (corp:Manager, corp:Engineer))\n  OPTIONAL { ?employee corp:worksIn ?department . }\n  OPTIONAL { ?employee corp:worksOn ?project . }\n}\nORDER BY ?employee"
+    },
+    {
+      "question": "Retrieve all datatype property values (ID, name, email, salary) for each employee (Managers and Engineers).",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeClass ?employeeId ?employeeName ?email ?salary\nWHERE {\n  ?employee a ?employeeClass .\n  FILTER(?employeeClass IN (corp:Manager, corp:Engineer))\n  OPTIONAL { ?employee corp:employeeId ?employeeId . }\n  OPTIONAL { ?employee corp:employeeName ?employeeName . }\n  OPTIONAL { ?employee corp:email ?email . }\n  OPTIONAL { ?employee corp:salary ?salary . }\n}\nORDER BY ?employee"
+    }
+  ]
+}
