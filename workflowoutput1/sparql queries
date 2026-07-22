@@ -3,24 +3,24 @@
   "totalQueries": 5,
   "queries": [
     {
-      "question": "What is the ontology IRI, its label, and comment defined in the corporate ontology?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?ontology ?label ?comment\nWHERE {\n  ?ontology a owl:Ontology .\n  OPTIONAL { ?ontology rdfs:label ?label . }\n  OPTIONAL { ?ontology rdfs:comment ?comment . }\n}"
+      "question": "What is the ontology defined in this repository, and what are its label and comment annotations?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?ontology ?label ?comment\nWHERE {\n  ?ontology a owl:Ontology .\n  OPTIONAL { ?ontology rdfs:label ?label . }\n  OPTIONAL { ?ontology rdfs:comment ?comment . }\n}\n"
     },
     {
-      "question": "Which classes are defined in the corporate ontology, and which of them are subclasses of corp:Employee?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?class ?isEmployeeSubClass\nWHERE {\n  ?class a owl:Class .\n  OPTIONAL {\n    ?class rdfs:subClassOf corp:Employee .\n    BIND(true AS ?isEmployeeSubClass)\n  }\n}"
+      "question": "What are the classes in the corporate ontology, and which of them are subclasses of corp:Employee?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?class ?superClass\nWHERE {\n  ?class a owl:Class .\n  OPTIONAL { ?class rdfs:subClassOf ?superClass . }\n}\n"
     },
     {
-      "question": "Which individuals are managers or engineers, and what are their employee IDs and names?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?person ?type ?employeeId ?employeeName\nWHERE {\n  {\n    ?person a corp:Manager .\n    BIND(corp:Manager AS ?type)\n  }\n  UNION\n  {\n    ?person a corp:Engineer .\n    BIND(corp:Engineer AS ?type)\n  }\n  OPTIONAL { ?person corp:employeeId ?employeeId . }\n  OPTIONAL { ?person corp:employeeName ?employeeName . }\n}"
+      "question": "Which individuals are defined in the corporate ontology, and what are their types?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?individual ?type\nWHERE {\n  ?individual rdf:type ?type .\n  FILTER (?type != owl:Class && ?type != owl:ObjectProperty && ?type != owl:DatatypeProperty && ?type != owl:Ontology)\n}\n"
     },
     {
-      "question": "Which employees work in the Engineering department and on which projects do they work?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeName ?project\nWHERE {\n  ?employee corp:worksIn corp:Engineering .\n  ?employee corp:worksOn ?project .\n  OPTIONAL { ?employee corp:employeeName ?employeeName . }\n}"
+      "question": "Which employees work in which departments and on which projects according to the object properties corp:worksIn and corp:worksOn?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?employeeType ?department ?project\nWHERE {\n  ?employee rdf:type ?employeeType .\n  FILTER (?employeeType = corp:Employee || ?employeeType = corp:Manager || ?employeeType = corp:Engineer) .\n  OPTIONAL { ?employee corp:worksIn ?department . }\n  OPTIONAL { ?employee corp:worksOn ?project . }\n}\n"
     },
     {
-      "question": "What are the salary and email details for all employees in the corporate ontology?",
-      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?type ?employeeName ?salary ?email\nWHERE {\n  ?employee a ?type .\n  FILTER(?type IN (corp:Manager, corp:Engineer)) .\n  OPTIONAL { ?employee corp:employeeName ?employeeName . }\n  OPTIONAL { ?employee corp:salary ?salary . }\n  OPTIONAL { ?employee corp:email ?email . }\n}"
+      "question": "What are the employee IDs, names, emails, and salaries of all managers and engineers?",
+      "sparql": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX corp: <http://example.org/corporate#>\n\nSELECT ?employee ?type ?employeeId ?employeeName ?email ?salary\nWHERE {\n  ?employee rdf:type ?type .\n  FILTER (?type = corp:Manager || ?type = corp:Engineer) .\n  OPTIONAL { ?employee corp:employeeId ?employeeId . }\n  OPTIONAL { ?employee corp:employeeName ?employeeName . }\n  OPTIONAL { ?employee corp:email ?email . }\n  OPTIONAL { ?employee corp:salary ?salary . }\n}\n"
     }
   ]
 }
