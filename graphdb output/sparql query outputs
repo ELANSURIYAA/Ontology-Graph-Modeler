@@ -1,0 +1,338 @@
+{
+    "status": "success",
+    "repository": "ontologyagents",
+    "executedQueries": 5,
+    "successfulQueries": 5,
+    "failedQueries": 0,
+    "results": [
+        {
+            "queryNumber": 1,
+            "question": "What is the ontology defined in this repository, and what are its label and comment annotations?",
+            "status": "success",
+            "rowsReturned": 1,
+            "data": [
+                {
+                    "ontology": "http://example.org/corporate",
+                    "label": "Corporate Organization Ontology",
+                    "comment": "Sample enterprise ontology for GraphDB and OWL to TTL conversion."
+                }
+            ]
+        },
+        {
+            "queryNumber": 2,
+            "question": "What are the classes in the corporate ontology, and which of them are subclasses of corp:Employee?",
+            "status": "success",
+            "rowsReturned": 8,
+            "data": [
+                {
+                    "class": "http://example.org/corporate#Company"
+                },
+                {
+                    "class": "http://example.org/corporate#Department"
+                },
+                {
+                    "class": "http://example.org/corporate#Employee"
+                },
+                {
+                    "class": "http://example.org/corporate#Manager",
+                    "superClass": "http://example.org/corporate#Employee"
+                },
+                {
+                    "class": "http://example.org/corporate#Engineer",
+                    "superClass": "http://example.org/corporate#Employee"
+                },
+                {
+                    "class": "http://example.org/corporate#Project"
+                },
+                {
+                    "class": "http://example.org/corporate#Client"
+                },
+                {
+                    "class": "http://example.org/corporate#Office"
+                }
+            ]
+        },
+        {
+            "queryNumber": 3,
+            "question": "Which individuals are defined in the corporate ontology, and what are their types?",
+            "status": "success",
+            "rowsReturned": 51,
+            "data": [
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
+                    "type": "http://www.w3.org/2002/07/owl#TransitiveProperty"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+                    "type": "http://www.w3.org/2002/07/owl#TransitiveProperty"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#domain",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#range",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2002/07/owl#equivalentProperty",
+                    "type": "http://www.w3.org/2002/07/owl#SymmetricProperty"
+                },
+                {
+                    "individual": "http://www.w3.org/2002/07/owl#equivalentProperty",
+                    "type": "http://www.w3.org/2002/07/owl#TransitiveProperty"
+                },
+                {
+                    "individual": "http://www.w3.org/2002/07/owl#equivalentClass",
+                    "type": "http://www.w3.org/2002/07/owl#SymmetricProperty"
+                },
+                {
+                    "individual": "http://www.w3.org/2002/07/owl#equivalentClass",
+                    "type": "http://www.w3.org/2002/07/owl#TransitiveProperty"
+                },
+                {
+                    "individual": "http://proton.semanticweb.org/protonsys#transitiveOver",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2002/07/owl#inverseOf",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2002/07/owl#inverseOf",
+                    "type": "http://www.w3.org/2002/07/owl#SymmetricProperty"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#object",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#first",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#List"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#comment",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/2000/01/rdf-schema#label",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral",
+                    "type": "http://www.w3.org/2000/01/rdf-schema#Class"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral",
+                    "type": "http://www.w3.org/2000/01/rdf-schema#Datatype"
+                },
+                {
+                    "individual": "http://www.w3.org/2002/07/owl#differentFrom",
+                    "type": "http://www.w3.org/2002/07/owl#SymmetricProperty"
+                },
+                {
+                    "individual": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+                    "type": "http://www.w3.org/2000/01/rdf-schema#Class"
+                },
+                {
+                    "individual": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+                    "type": "http://www.w3.org/2000/01/rdf-schema#Datatype"
+                },
+                {
+                    "individual": "http://www.w3.org/2001/XMLSchema#string",
+                    "type": "http://www.w3.org/2000/01/rdf-schema#Class"
+                },
+                {
+                    "individual": "http://www.w3.org/2001/XMLSchema#string",
+                    "type": "http://www.w3.org/2000/01/rdf-schema#Datatype"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#_1",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://www.w3.org/1999/02/22-rdf-syntax-ns#_1",
+                    "type": "http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty"
+                },
+                {
+                    "individual": "http://example.org/corporate#worksIn",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://example.org/corporate#worksOn",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://example.org/corporate#manages",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://example.org/corporate#employeeId",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://example.org/corporate#employeeName",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://example.org/corporate#salary",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://example.org/corporate#email",
+                    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                },
+                {
+                    "individual": "http://example.org/corporate#TechCorp",
+                    "type": "http://example.org/corporate#Company"
+                },
+                {
+                    "individual": "http://example.org/corporate#Engineering",
+                    "type": "http://example.org/corporate#Department"
+                },
+                {
+                    "individual": "http://example.org/corporate#Sales",
+                    "type": "http://example.org/corporate#Department"
+                },
+                {
+                    "individual": "http://example.org/corporate#HyderabadOffice",
+                    "type": "http://example.org/corporate#Office"
+                },
+                {
+                    "individual": "http://example.org/corporate#GlobalBank",
+                    "type": "http://example.org/corporate#Client"
+                },
+                {
+                    "individual": "http://example.org/corporate#AIPlatform",
+                    "type": "http://example.org/corporate#Project"
+                },
+                {
+                    "individual": "http://example.org/corporate#AliceJohnson",
+                    "type": "http://example.org/corporate#Employee"
+                },
+                {
+                    "individual": "http://example.org/corporate#AliceJohnson",
+                    "type": "http://example.org/corporate#Manager"
+                },
+                {
+                    "individual": "http://example.org/corporate#JohnSmith",
+                    "type": "http://example.org/corporate#Employee"
+                },
+                {
+                    "individual": "http://example.org/corporate#JohnSmith",
+                    "type": "http://example.org/corporate#Engineer"
+                },
+                {
+                    "individual": "http://example.org/corporate#BobWilliams",
+                    "type": "http://example.org/corporate#Employee"
+                },
+                {
+                    "individual": "http://example.org/corporate#BobWilliams",
+                    "type": "http://example.org/corporate#Engineer"
+                }
+            ]
+        },
+        {
+            "queryNumber": 4,
+            "question": "Which employees work in which departments and on which projects according to the object properties corp:worksIn and corp:worksOn?",
+            "status": "success",
+            "rowsReturned": 6,
+            "data": [
+                {
+                    "employee": "http://example.org/corporate#AliceJohnson",
+                    "employeeType": "http://example.org/corporate#Employee",
+                    "department": "http://example.org/corporate#Engineering",
+                    "project": "http://example.org/corporate#AIPlatform"
+                },
+                {
+                    "employee": "http://example.org/corporate#JohnSmith",
+                    "employeeType": "http://example.org/corporate#Employee",
+                    "department": "http://example.org/corporate#Engineering",
+                    "project": "http://example.org/corporate#AIPlatform"
+                },
+                {
+                    "employee": "http://example.org/corporate#BobWilliams",
+                    "employeeType": "http://example.org/corporate#Employee"
+                },
+                {
+                    "employee": "http://example.org/corporate#AliceJohnson",
+                    "employeeType": "http://example.org/corporate#Manager",
+                    "department": "http://example.org/corporate#Engineering",
+                    "project": "http://example.org/corporate#AIPlatform"
+                },
+                {
+                    "employee": "http://example.org/corporate#JohnSmith",
+                    "employeeType": "http://example.org/corporate#Engineer",
+                    "department": "http://example.org/corporate#Engineering",
+                    "project": "http://example.org/corporate#AIPlatform"
+                },
+                {
+                    "employee": "http://example.org/corporate#BobWilliams",
+                    "employeeType": "http://example.org/corporate#Engineer"
+                }
+            ]
+        },
+        {
+            "queryNumber": 5,
+            "question": "What are the employee IDs, names, emails, and salaries of all managers and engineers?",
+            "status": "success",
+            "rowsReturned": 3,
+            "data": [
+                {
+                    "employee": "http://example.org/corporate#AliceJohnson",
+                    "type": "http://example.org/corporate#Manager",
+                    "employeeId": "1001",
+                    "employeeName": "Alice Johnson",
+                    "email": "alice@techcorp.com",
+                    "salary": "95000"
+                },
+                {
+                    "employee": "http://example.org/corporate#JohnSmith",
+                    "type": "http://example.org/corporate#Engineer",
+                    "employeeId": "1002",
+                    "employeeName": "John Smith",
+                    "email": "john@techcorp.com",
+                    "salary": "72000"
+                },
+                {
+                    "employee": "http://example.org/corporate#BobWilliams",
+                    "type": "http://example.org/corporate#Engineer",
+                    "employeeId": "1003",
+                    "employeeName": "Bob Williams"
+                }
+            ]
+        }
+    ]
+}
