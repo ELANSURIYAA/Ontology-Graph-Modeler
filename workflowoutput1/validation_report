@@ -1,507 +1,512 @@
 {
   "status": "success",
-  "overallScore": 99,
+  "overallScore": 100,
   "completeness": {
     "score": 100,
-    "summary": "The Turtle ontology fully preserves all entities, relationships, and annotations from the source OWL ontology. No classes, properties, individuals, or assertions are missing."
+    "summary": "All ontology components from the source OWL (ontology declaration, namespaces, classes, subclass axioms, object properties, datatype properties, individuals, annotations, and property assertions) are fully represented in the generated Turtle ontology. No entities or relationships are missing."
   },
   "accuracy": {
-    "score": 99,
-    "summary": "Namespace mappings, entity IRIs, predicates, datatypes, and syntax are all correctly translated and consistent. Minor, non-critical differences appear only in representation style (e.g., explicit xsd prefix vs. full datatype IRI), but the TTL already matches the OWL semantics exactly."
+    "score": 100,
+    "summary": "Namespace, entity, predicate, datatype mappings, and Turtle syntax are all correct. IRIs and prefixes match exactly between OWL and TTL; literals and datatypes are accurately converted; and semantic correspondence between the two serializations is preserved."
   },
   "efficiency": {
-    "score": 98,
-    "summary": "The Turtle ontology is concise and free of duplicates or redundant entities. Minor efficiency improvement could be achieved by reusing the xsd:decimal prefix instead of the full datatype IRI, but this is stylistic rather than substantive."
+    "score": 100,
+    "summary": "The TTL serialization is concise and free from duplicate triples, redundant entities, or unnecessary statements. No extraneous constructs beyond those present in the OWL source were introduced."
   },
   "validationReport": {
     "missingEntities": [],
     "missingRelationships": [],
     "incorrectMappings": [],
+    "syntaxIssues": [],
+    "namespaceInconsistencies": [],
     "warnings": [],
-    "recommendations": [
-      {
-        "id": "EFF-001",
-        "type": "efficiency",
-        "description": "Consider using the predefined xsd:decimal datatype instead of the full datatype IRI <http://www.w3.org/2001/XMLSchema#decimal> in salary assertions to improve readability and consistency.",
-        "affectedTriples": [
-          "corp:AliceJohnson corp:salary \"95000\"^^<http://www.w3.org/2001/XMLSchema#decimal> .",
-          "corp:JohnSmith corp:salary \"72000\"^^<http://www.w3.org/2001/XMLSchema#decimal> ."
-        ]
-      }
-    ],
-    "detailedFindings": {
+    "recommendations": [],
+    "details": {
       "syntacticValidity": {
-        "owlOntology": {
+        "owl": {
           "isValid": true,
-          "issues": [],
-          "notes": [
-            "OWL/RDF XML syntax is well-formed.",
-            "All rdf:about IRIs are absolute and consistent with the corp namespace.",
-            "Use of typed literals (xsd:decimal for salary) is correct."
+          "observations": [
+            "OWL file uses standard RDF/XML syntax with rdf:RDF root element and properly declared namespaces (rdf, rdfs, owl, xsd, corp).",
+            "All resources (classes, properties, individuals) are properly typed with owl:Class, owl:ObjectProperty, owl:DatatypeProperty or via element name in the corp namespace.",
+            "Literals include correct datatype specification for salary (xsd:decimal)."
           ]
         },
-        "ttlOntology": {
+        "ttl": {
           "isValid": true,
-          "issues": [],
-          "notes": [
-            "Turtle prefixes are declared correctly: rdf, rdfs, owl, xsd, corp.",
-            "Ontology IRI is given as <http://example.org/corporate>, matching the OWL source.",
-            "All triples conform to Turtle syntax and parse without ambiguity."
+          "observations": [
+            "TTL file declares standard prefixes rdf, rdfs, owl, xsd, and corp.",
+            "Ontology declaration uses correct Turtle triple form: <http://example.org/corporate> a owl:Ontology ; rdfs:label ... ; rdfs:comment ... .",
+            "All triples end with a period; semicolons and prefix usage are syntactically correct.",
+            "Datatyped literals for salary follow the correct '\"value\"^^IRI' form."
           ]
         }
       },
-      "ontologyDeclaration": {
-        "owlOntology": {
-          "iri": "http://example.org/corporate",
-          "annotations": {
-            "rdfs:label": "Corporate Organization Ontology",
-            "rdfs:comment": "Sample enterprise ontology for GraphDB and OWL to TTL conversion."
-          }
-        },
-        "ttlOntology": {
-          "iri": "http://example.org/corporate",
-          "annotations": {
-            "rdfs:label": "Corporate Organization Ontology",
-            "rdfs:comment": "Sample enterprise ontology for GraphDB and OWL to TTL conversion."
-          }
-        },
-        "comparisonResult": {
+      "componentComparison": {
+        "ontologyDeclaration": {
+          "owl": {
+            "iri": "http://example.org/corporate",
+            "label": "Corporate Organization Ontology",
+            "comment": "Sample enterprise ontology for GraphDB and OWL to TTL conversion."
+          },
+          "ttl": {
+            "iri": "http://example.org/corporate",
+            "label": "Corporate Organization Ontology",
+            "comment": "Sample enterprise ontology for GraphDB and OWL to TTL conversion."
+          },
           "match": true,
-          "differences": []
-        }
-      },
-      "namespaces": {
-        "owlOntologyNamespaces": {
-          "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-          "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-          "owl": "http://www.w3.org/2002/07/owl#",
-          "xsd": "http://www.w3.org/2001/XMLSchema#",
-          "corp": "http://example.org/corporate#"
+          "notes": [
+            "Ontology IRI and both annotations (rdfs:label, rdfs:comment) are identically preserved."
+          ]
         },
-        "ttlOntologyPrefixes": {
-          "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-          "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-          "owl": "http://www.w3.org/2002/07/owl#",
-          "xsd": "http://www.w3.org/2001/XMLSchema#",
-          "corp": "http://example.org/corporate#"
+        "namespaces": {
+          "owl": {
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "corp": "http://example.org/corporate#"
+          },
+          "ttl": {
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "corp": "http://example.org/corporate#"
+          },
+          "match": true,
+          "notes": [
+            "All prefixes are exactly aligned between OWL and TTL.",
+            "corp namespace base IRI is consistent: http://example.org/corporate#."
+          ]
         },
-        "namespaceConsistency": {
-          "isConsistent": true,
-          "issues": [],
+        "classes": {
+          "owlClasses": [
+            "http://example.org/corporate#Company",
+            "http://example.org/corporate#Department",
+            "http://example.org/corporate#Employee",
+            "http://example.org/corporate#Manager",
+            "http://example.org/corporate#Engineer",
+            "http://example.org/corporate#Project",
+            "http://example.org/corporate#Client",
+            "http://example.org/corporate#Office"
+          ],
+          "ttlClasses": [
+            "corp:Company",
+            "corp:Department",
+            "corp:Employee",
+            "corp:Manager",
+            "corp:Engineer",
+            "corp:Project",
+            "corp:Client",
+            "corp:Office"
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
           "notes": [
-            "All namespaces in OWL are present with identical IRIs in Turtle.",
-            "corp namespace base IRI is correctly retained."
+            "Each owl:Class declaration in RDF/XML appears as a corresponding corp:* a owl:Class triple in TTL.",
+            "No additional classes were introduced."
+          ]
+        },
+        "subclassRelationships": {
+          "owlSubclassAxioms": [
+            {
+              "subClass": "http://example.org/corporate#Manager",
+              "superClass": "http://example.org/corporate#Employee"
+            },
+            {
+              "subClass": "http://example.org/corporate#Engineer",
+              "superClass": "http://example.org/corporate#Employee"
+            }
+          ],
+          "ttlSubclassTriples": [
+            {
+              "subClass": "corp:Manager",
+              "superClass": "corp:Employee"
+            },
+            {
+              "subClass": "corp:Engineer",
+              "superClass": "corp:Employee"
+            }
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
+          "notes": [
+            "All subclass axioms are preserved via rdfs:subClassOf in TTL."
+          ]
+        },
+        "objectProperties": {
+          "owlProperties": [
+            "http://example.org/corporate#worksIn",
+            "http://example.org/corporate#worksOn",
+            "http://example.org/corporate#manages",
+            "http://example.org/corporate#forClient",
+            "http://example.org/corporate#locatedIn"
+          ],
+          "ttlProperties": [
+            "corp:worksIn",
+            "corp:worksOn",
+            "corp:manages",
+            "corp:forClient",
+            "corp:locatedIn"
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
+          "notes": [
+            "All object properties are correctly declared as owl:ObjectProperty in TTL.",
+            "No domain/range axioms exist in the source; none are added in TTL (consistent)."
+          ]
+        },
+        "datatypeProperties": {
+          "owlProperties": [
+            "http://example.org/corporate#employeeId",
+            "http://example.org/corporate#employeeName",
+            "http://example.org/corporate#departmentName",
+            "http://example.org/corporate#projectName",
+            "http://example.org/corporate#clientName",
+            "http://example.org/corporate#officeLocation",
+            "http://example.org/corporate#salary",
+            "http://example.org/corporate#email"
+          ],
+          "ttlProperties": [
+            "corp:employeeId",
+            "corp:employeeName",
+            "corp:departmentName",
+            "corp:projectName",
+            "corp:clientName",
+            "corp:officeLocation",
+            "corp:salary",
+            "corp:email"
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
+          "notes": [
+            "All datatype properties are correctly declared as owl:DatatypeProperty in TTL."
+          ]
+        },
+        "individuals": {
+          "owlIndividuals": [
+            {
+              "iri": "http://example.org/corporate#TechCorp",
+              "type": "corp:Company"
+            },
+            {
+              "iri": "http://example.org/corporate#Engineering",
+              "type": "corp:Department"
+            },
+            {
+              "iri": "http://example.org/corporate#Sales",
+              "type": "corp:Department"
+            },
+            {
+              "iri": "http://example.org/corporate#HyderabadOffice",
+              "type": "corp:Office"
+            },
+            {
+              "iri": "http://example.org/corporate#GlobalBank",
+              "type": "corp:Client"
+            },
+            {
+              "iri": "http://example.org/corporate#AIPlatform",
+              "type": "corp:Project"
+            },
+            {
+              "iri": "http://example.org/corporate#AliceJohnson",
+              "type": "corp:Manager"
+            },
+            {
+              "iri": "http://example.org/corporate#JohnSmith",
+              "type": "corp:Engineer"
+            }
+          ],
+          "ttlIndividuals": [
+            {
+              "iri": "corp:TechCorp",
+              "type": "corp:Company"
+            },
+            {
+              "iri": "corp:Engineering",
+              "type": "corp:Department"
+            },
+            {
+              "iri": "corp:Sales",
+              "type": "corp:Department"
+            },
+            {
+              "iri": "corp:HyderabadOffice",
+              "type": "corp:Office"
+            },
+            {
+              "iri": "corp:GlobalBank",
+              "type": "corp:Client"
+            },
+            {
+              "iri": "corp:AIPlatform",
+              "type": "corp:Project"
+            },
+            {
+              "iri": "corp:AliceJohnson",
+              "type": "corp:Manager"
+            },
+            {
+              "iri": "corp:JohnSmith",
+              "type": "corp:Engineer"
+            }
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
+          "notes": [
+            "All individuals (company, departments, office, client, project, manager, engineer) are present in TTL with correct rdf:type assignments."
+          ]
+        },
+        "annotations": {
+          "owlAnnotations": [
+            {
+              "subject": "http://example.org/corporate",
+              "predicate": "rdfs:label",
+              "object": "Corporate Organization Ontology"
+            },
+            {
+              "subject": "http://example.org/corporate",
+              "predicate": "rdfs:comment",
+              "object": "Sample enterprise ontology for GraphDB and OWL to TTL conversion."
+            }
+          ],
+          "ttlAnnotations": [
+            {
+              "subject": "<http://example.org/corporate>",
+              "predicate": "rdfs:label",
+              "object": "\"Corporate Organization Ontology\""
+            },
+            {
+              "subject": "<http://example.org/corporate>",
+              "predicate": "rdfs:comment",
+              "object": "\"Sample enterprise ontology for GraphDB and OWL to TTL conversion.\""
+            }
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
+          "notes": [
+            "Ontology-level annotations are exactly preserved; no additional annotations are introduced."
+          ]
+        },
+        "objectPropertyAssertions": {
+          "owlAssertions": [
+            {
+              "subject": "http://example.org/corporate#AliceJohnson",
+              "predicate": "corp:worksIn",
+              "object": "http://example.org/corporate#Engineering"
+            },
+            {
+              "subject": "http://example.org/corporate#AliceJohnson",
+              "predicate": "corp:manages",
+              "object": "http://example.org/corporate#Engineering"
+            },
+            {
+              "subject": "http://example.org/corporate#AliceJohnson",
+              "predicate": "corp:worksOn",
+              "object": "http://example.org/corporate#AIPlatform"
+            },
+            {
+              "subject": "http://example.org/corporate#JohnSmith",
+              "predicate": "corp:worksIn",
+              "object": "http://example.org/corporate#Engineering"
+            },
+            {
+              "subject": "http://example.org/corporate#JohnSmith",
+              "predicate": "corp:worksOn",
+              "object": "http://example.org/corporate#AIPlatform"
+            }
+          ],
+          "ttlAssertions": [
+            {
+              "subject": "corp:AliceJohnson",
+              "predicate": "corp:worksIn",
+              "object": "corp:Engineering"
+            },
+            {
+              "subject": "corp:AliceJohnson",
+              "predicate": "corp:manages",
+              "object": "corp:Engineering"
+            },
+            {
+              "subject": "corp:AliceJohnson",
+              "predicate": "corp:worksOn",
+              "object": "corp:AIPlatform"
+            },
+            {
+              "subject": "corp:JohnSmith",
+              "predicate": "corp:worksIn",
+              "object": "corp:Engineering"
+            },
+            {
+              "subject": "corp:JohnSmith",
+              "predicate": "corp:worksOn",
+              "object": "corp:AIPlatform"
+            }
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
+          "notes": [
+            "Every object property assertion in OWL is present in TTL with equivalent subject/object IRIs via corp prefix."
+          ]
+        },
+        "datatypePropertyAssertions": {
+          "owlAssertions": [
+            {
+              "subject": "http://example.org/corporate#AliceJohnson",
+              "predicate": "corp:employeeId",
+              "literal": "1001",
+              "datatype": "xsd:string (implicitly, by plain literal)"
+            },
+            {
+              "subject": "http://example.org/corporate#AliceJohnson",
+              "predicate": "corp:employeeName",
+              "literal": "Alice Johnson",
+              "datatype": "xsd:string (implicitly)"
+            },
+            {
+              "subject": "http://example.org/corporate#AliceJohnson",
+              "predicate": "corp:email",
+              "literal": "alice@techcorp.com",
+              "datatype": "xsd:string (implicitly)"
+            },
+            {
+              "subject": "http://example.org/corporate#AliceJohnson",
+              "predicate": "corp:salary",
+              "literal": "95000",
+              "datatype": "http://www.w3.org/2001/XMLSchema#decimal"
+            },
+            {
+              "subject": "http://example.org/corporate#JohnSmith",
+              "predicate": "corp:employeeId",
+              "literal": "1002",
+              "datatype": "xsd:string (implicitly)"
+            },
+            {
+              "subject": "http://example.org/corporate#JohnSmith",
+              "predicate": "corp:employeeName",
+              "literal": "John Smith",
+              "datatype": "xsd:string (implicitly)"
+            },
+            {
+              "subject": "http://example.org/corporate#JohnSmith",
+              "predicate": "corp:email",
+              "literal": "john@techcorp.com",
+              "datatype": "xsd:string (implicitly)"
+            },
+            {
+              "subject": "http://example.org/corporate#JohnSmith",
+              "predicate": "corp:salary",
+              "literal": "72000",
+              "datatype": "http://www.w3.org/2001/XMLSchema#decimal"
+            }
+          ],
+          "ttlAssertions": [
+            {
+              "subject": "corp:AliceJohnson",
+              "predicate": "corp:employeeId",
+              "literal": "\"1001\"",
+              "datatype": "implicitly xsd:string"
+            },
+            {
+              "subject": "corp:AliceJohnson",
+              "predicate": "corp:employeeName",
+              "literal": "\"Alice Johnson\"",
+              "datatype": "implicitly xsd:string"
+            },
+            {
+              "subject": "corp:AliceJohnson",
+              "predicate": "corp:email",
+              "literal": "\"alice@techcorp.com\"",
+              "datatype": "implicitly xsd:string"
+            },
+            {
+              "subject": "corp:AliceJohnson",
+              "predicate": "corp:salary",
+              "literal": "\"95000\"",
+              "datatype": "http://www.w3.org/2001/XMLSchema#decimal"
+            },
+            {
+              "subject": "corp:JohnSmith",
+              "predicate": "corp:employeeId",
+              "literal": "\"1002\"",
+              "datatype": "implicitly xsd:string"
+            },
+            {
+              "subject": "corp:JohnSmith",
+              "predicate": "corp:employeeName",
+              "literal": "\"John Smith\"",
+              "datatype": "implicitly xsd:string"
+            },
+            {
+              "subject": "corp:JohnSmith",
+              "predicate": "corp:email",
+              "literal": "\"john@techcorp.com\"",
+              "datatype": "implicitly xsd:string"
+            },
+            {
+              "subject": "corp:JohnSmith",
+              "predicate": "corp:salary",
+              "literal": "\"72000\"",
+              "datatype": "http://www.w3.org/2001/XMLSchema#decimal"
+            }
+          ],
+          "missingInTTL": [],
+          "extraInTTL": [],
+          "notes": [
+            "All literal values are preserved.",
+            "Explicit xsd:decimal typing for salary is accurately represented via ^^<http://www.w3.org/2001/XMLSchema#decimal>.",
+            "Plain literals are correctly represented as quoted strings in TTL."
           ]
         }
       },
-      "classes": {
-        "owlClasses": [
-          "http://example.org/corporate#Company",
-          "http://example.org/corporate#Department",
-          "http://example.org/corporate#Employee",
-          "http://example.org/corporate#Manager",
-          "http://example.org/corporate#Engineer",
-          "http://example.org/corporate#Project",
-          "http://example.org/corporate#Client",
-          "http://example.org/corporate#Office"
-        ],
-        "ttlClasses": [
-          "corp:Company",
-          "corp:Department",
-          "corp:Employee",
-          "corp:Manager",
-          "corp:Engineer",
-          "corp:Project",
-          "corp:Client",
-          "corp:Office"
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "All 8 classes defined in OWL are present as owl:Class in TTL."
-          ]
+      "metricsComputation": {
+        "entityCounts": {
+          "owl": {
+            "classes": 8,
+            "objectProperties": 5,
+            "datatypeProperties": 8,
+            "individuals": 8,
+            "subclassAxioms": 2,
+            "objectPropertyAssertions": 5,
+            "datatypePropertyAssertions": 8,
+            "annotations": 2
+          },
+          "ttl": {
+            "classes": 8,
+            "objectProperties": 5,
+            "datatypeProperties": 8,
+            "individuals": 8,
+            "subclassAxioms": 2,
+            "objectPropertyAssertions": 5,
+            "datatypePropertyAssertions": 8,
+            "annotations": 2
+          }
+        },
+        "completenessCalculation": {
+          "totalExpectedElements": 48,
+          "totalPresentInTTL": 48,
+          "missingElements": 0,
+          "scoreBasis": "completeness = (present / expected) * 100 = (48 / 48) * 100 = 100"
+        },
+        "accuracyCalculation": {
+          "checkedDimensions": [
+            "Namespace mappings",
+            "Entity IRIs and types",
+            "Predicate IRIs",
+            "Literal values",
+            "Datatypes",
+            "Turtle serialization correctness"
+          ],
+          "issuesFound": 0,
+          "scoreBasis": "accuracy = ((checks - issues) / checks) * 100; no deviations detected, so accuracy = 100"
+        },
+        "efficiencyCalculation": {
+          "duplicatesFound": 0,
+          "redundantEntitiesFound": 0,
+          "unnecessaryStatementsFound": 0,
+          "scoreBasis": "efficiency penalizes only duplicates/redundancies; none were detected, so efficiency = 100"
         }
-      },
-      "subclassRelationships": {
-        "owlSubClasses": [
-          {
-            "subClass": "http://example.org/corporate#Manager",
-            "superClass": "http://example.org/corporate#Employee"
-          },
-          {
-            "subClass": "http://example.org/corporate#Engineer",
-            "superClass": "http://example.org/corporate#Employee"
-          }
-        ],
-        "ttlSubClasses": [
-          {
-            "subClass": "corp:Manager",
-            "superClass": "corp:Employee"
-          },
-          {
-            "subClass": "corp:Engineer",
-            "superClass": "corp:Employee"
-          }
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "Subclass axioms Manager ⊑ Employee and Engineer ⊑ Employee are correctly preserved.",
-            "No unexpected subclass relationships are introduced."
-          ]
-        }
-      },
-      "objectProperties": {
-        "owlObjectProperties": [
-          "http://example.org/corporate#worksIn",
-          "http://example.org/corporate#worksOn",
-          "http://example.org/corporate#manages",
-          "http://example.org/corporate#forClient",
-          "http://example.org/corporate#locatedIn"
-        ],
-        "ttlObjectProperties": [
-          "corp:worksIn",
-          "corp:worksOn",
-          "corp:manages",
-          "corp:forClient",
-          "corp:locatedIn"
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "All 5 object properties from OWL exist as owl:ObjectProperty in TTL.",
-            "No domains/ranges were defined in OWL, so none are expected in TTL."
-          ]
-        }
-      },
-      "datatypeProperties": {
-        "owlDatatypeProperties": [
-          "http://example.org/corporate#employeeId",
-          "http://example.org/corporate#employeeName",
-          "http://example.org/corporate#departmentName",
-          "http://example.org/corporate#projectName",
-          "http://example.org/corporate#clientName",
-          "http://example.org/corporate#officeLocation",
-          "http://example.org/corporate#salary",
-          "http://example.org/corporate#email"
-        ],
-        "ttlDatatypeProperties": [
-          "corp:employeeId",
-          "corp:employeeName",
-          "corp:departmentName",
-          "corp:projectName",
-          "corp:clientName",
-          "corp:officeLocation",
-          "corp:salary",
-          "corp:email"
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "All 8 datatype properties from OWL exist as owl:DatatypeProperty in TTL."
-          ]
-        }
-      },
-      "individuals": {
-        "owlIndividuals": [
-          {
-            "iri": "http://example.org/corporate#TechCorp",
-            "rdfType": "corp:Company"
-          },
-          {
-            "iri": "http://example.org/corporate#Engineering",
-            "rdfType": "corp:Department"
-          },
-          {
-            "iri": "http://example.org/corporate#Sales",
-            "rdfType": "corp:Department"
-          },
-          {
-            "iri": "http://example.org/corporate#HyderabadOffice",
-            "rdfType": "corp:Office"
-          },
-          {
-            "iri": "http://example.org/corporate#GlobalBank",
-            "rdfType": "corp:Client"
-          },
-          {
-            "iri": "http://example.org/corporate#AIPlatform",
-            "rdfType": "corp:Project"
-          },
-          {
-            "iri": "http://example.org/corporate#AliceJohnson",
-            "rdfType": "corp:Manager"
-          },
-          {
-            "iri": "http://example.org/corporate#JohnSmith",
-            "rdfType": "corp:Engineer"
-          }
-        ],
-        "ttlIndividuals": [
-          {
-            "iri": "corp:TechCorp",
-            "rdfType": "corp:Company"
-          },
-          {
-            "iri": "corp:Engineering",
-            "rdfType": "corp:Department"
-          },
-          {
-            "iri": "corp:Sales",
-            "rdfType": "corp:Department"
-          },
-          {
-            "iri": "corp:HyderabadOffice",
-            "rdfType": "corp:Office"
-          },
-          {
-            "iri": "corp:GlobalBank",
-            "rdfType": "corp:Client"
-          },
-          {
-            "iri": "corp:AIPlatform",
-            "rdfType": "corp:Project"
-          },
-          {
-            "iri": "corp:AliceJohnson",
-            "rdfType": "corp:Manager"
-          },
-          {
-            "iri": "corp:JohnSmith",
-            "rdfType": "corp:Engineer"
-          }
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "All 8 individuals in the OWL source appear in TTL with the correct rdf:type statements.",
-            "Type consistency between OWL and TTL is preserved."
-          ]
-        }
-      },
-      "annotations": {
-        "owlAnnotations": [
-          {
-            "subject": "http://example.org/corporate",
-            "predicate": "rdfs:label",
-            "object": "Corporate Organization Ontology"
-          },
-          {
-            "subject": "http://example.org/corporate",
-            "predicate": "rdfs:comment",
-            "object": "Sample enterprise ontology for GraphDB and OWL to TTL conversion."
-          }
-        ],
-        "ttlAnnotations": [
-          {
-            "subject": "<http://example.org/corporate>",
-            "predicate": "rdfs:label",
-            "object": "\"Corporate Organization Ontology\""
-          },
-          {
-            "subject": "<http://example.org/corporate>",
-            "predicate": "rdfs:comment",
-            "object": "\"Sample enterprise ontology for GraphDB and OWL to TTL conversion.\""
-          }
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "Ontology label and comment are correctly preserved.",
-            "No additional entity-level annotations exist in OWL, so TTL is complete."
-          ]
-        }
-      },
-      "objectPropertyAssertions": {
-        "owlAssertions": [
-          {
-            "subject": "http://example.org/corporate#AliceJohnson",
-            "predicate": "http://example.org/corporate#worksIn",
-            "object": "http://example.org/corporate#Engineering"
-          },
-          {
-            "subject": "http://example.org/corporate#AliceJohnson",
-            "predicate": "http://example.org/corporate#manages",
-            "object": "http://example.org/corporate#Engineering"
-          },
-          {
-            "subject": "http://example.org/corporate#AliceJohnson",
-            "predicate": "http://example.org/corporate#worksOn",
-            "object": "http://example.org/corporate#AIPlatform"
-          },
-          {
-            "subject": "http://example.org/corporate#JohnSmith",
-            "predicate": "http://example.org/corporate#worksIn",
-            "object": "http://example.org/corporate#Engineering"
-          },
-          {
-            "subject": "http://example.org/corporate#JohnSmith",
-            "predicate": "http://example.org/corporate#worksOn",
-            "object": "http://example.org/corporate#AIPlatform"
-          }
-        ],
-        "ttlAssertions": [
-          {
-            "subject": "corp:AliceJohnson",
-            "predicate": "corp:worksIn",
-            "object": "corp:Engineering"
-          },
-          {
-            "subject": "corp:AliceJohnson",
-            "predicate": "corp:manages",
-            "object": "corp:Engineering"
-          },
-          {
-            "subject": "corp:AliceJohnson",
-            "predicate": "corp:worksOn",
-            "object": "corp:AIPlatform"
-          },
-          {
-            "subject": "corp:JohnSmith",
-            "predicate": "corp:worksIn",
-            "object": "corp:Engineering"
-          },
-          {
-            "subject": "corp:JohnSmith",
-            "predicate": "corp:worksOn",
-            "object": "corp:AIPlatform"
-          }
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "All 5 object property assertions in OWL are preserved in TTL.",
-            "IRIs and roles (subject, predicate, object) match semantically."
-          ]
-        }
-      },
-      "datatypePropertyAssertions": {
-        "owlAssertions": [
-          {
-            "subject": "http://example.org/corporate#AliceJohnson",
-            "predicate": "http://example.org/corporate#employeeId",
-            "literal": "1001",
-            "datatype": "xsd:string (implicit in XML literal)"
-          },
-          {
-            "subject": "http://example.org/corporate#AliceJohnson",
-            "predicate": "http://example.org/corporate#employeeName",
-            "literal": "Alice Johnson",
-            "datatype": "xsd:string (implicit)"
-          },
-          {
-            "subject": "http://example.org/corporate#AliceJohnson",
-            "predicate": "http://example.org/corporate#email",
-            "literal": "alice@techcorp.com",
-            "datatype": "xsd:string (implicit)"
-          },
-          {
-            "subject": "http://example.org/corporate#AliceJohnson",
-            "predicate": "http://example.org/corporate#salary",
-            "literal": "95000",
-            "datatype": "http://www.w3.org/2001/XMLSchema#decimal"
-          },
-          {
-            "subject": "http://example.org/corporate#JohnSmith",
-            "predicate": "http://example.org/corporate#employeeId",
-            "literal": "1002",
-            "datatype": "xsd:string (implicit)"
-          },
-          {
-            "subject": "http://example.org/corporate#JohnSmith",
-            "predicate": "http://example.org/corporate#employeeName",
-            "literal": "John Smith",
-            "datatype": "xsd:string (implicit)"
-          },
-          {
-            "subject": "http://example.org/corporate#JohnSmith",
-            "predicate": "http://example.org/corporate#email",
-            "literal": "john@techcorp.com",
-            "datatype": "xsd:string (implicit)"
-          },
-          {
-            "subject": "http://example.org/corporate#JohnSmith",
-            "predicate": "http://example.org/corporate#salary",
-            "literal": "72000",
-            "datatype": "http://www.w3.org/2001/XMLSchema#decimal"
-          }
-        ],
-        "ttlAssertions": [
-          {
-            "subject": "corp:AliceJohnson",
-            "predicate": "corp:employeeId",
-            "literal": "1001",
-            "datatype": "xsd:string (implicit Turtle plain literal)"
-          },
-          {
-            "subject": "corp:AliceJohnson",
-            "predicate": "corp:employeeName",
-            "literal": "Alice Johnson",
-            "datatype": "xsd:string (implicit Turtle plain literal)"
-          },
-          {
-            "subject": "corp:AliceJohnson",
-            "predicate": "corp:email",
-            "literal": "alice@techcorp.com",
-            "datatype": "xsd:string (implicit Turtle plain literal)"
-          },
-          {
-            "subject": "corp:AliceJohnson",
-            "predicate": "corp:salary",
-            "literal": "95000",
-            "datatype": "<http://www.w3.org/2001/XMLSchema#decimal>"
-          },
-          {
-            "subject": "corp:JohnSmith",
-            "predicate": "corp:employeeId",
-            "literal": "1002",
-            "datatype": "xsd:string (implicit Turtle plain literal)"
-          },
-          {
-            "subject": "corp:JohnSmith",
-            "predicate": "corp:employeeName",
-            "literal": "John Smith",
-            "datatype": "xsd:string (implicit Turtle plain literal)"
-          },
-          {
-            "subject": "corp:JohnSmith",
-            "predicate": "corp:email",
-            "literal": "john@techcorp.com",
-            "datatype": "xsd:string (implicit Turtle plain literal)"
-          },
-          {
-            "subject": "corp:JohnSmith",
-            "predicate": "corp:salary",
-            "literal": "72000",
-            "datatype": "<http://www.w3.org/2001/XMLSchema#decimal>"
-          }
-        ],
-        "comparisonResult": {
-          "missingInTtl": [],
-          "extraInTtl": [],
-          "notes": [
-            "All 8 datatype property assertions from OWL are present in TTL.",
-            "Decimal datatypes for salary are preserved exactly using the same datatype IRI.",
-            "Plain string literals are consistent in content; implicit xsd:string typing is acceptable and semantically equivalent for OWL 2 DL."
-          ]
-        }
-      },
-      "efficiencyAnalysis": {
-        "duplicateTriples": [],
-        "redundantEntities": [],
-        "unnecessaryStatements": [],
-        "notes": [
-          "No repeated class, property, or individual declarations are present.",
-          "No unused classes or properties appear in TTL that were not in OWL.",
-          "All individuals and properties declared are used at least once, except for some datatype properties (departmentName, projectName, clientName, officeLocation) which exist in OWL and TTL but are not instantiated; this mirrors the source ontology exactly and is not an inefficiency introduced by conversion."
-        ]
       }
     }
   }
